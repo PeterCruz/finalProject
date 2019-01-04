@@ -22,4 +22,19 @@ router.post('/', auth.verifyToken, (req, res) => {
         })
 });
 
+router.post('/news', auth.verifyToken, (req, res) => {
+    const name = req.body.name;
+    const firstLastname = req.body.firstLastname;
+    const secondLastname = req.body.secondLastname;
+
+    axios.get(`${process.env.API_NEWS}/news?name=${name}%20${firstLastname}%20${secondLastname}`)
+        .then(db => {
+            const newsDB = db.data;
+            res.status(200).json({newsDB})
+        })
+        .catch(err => {
+            res.status(500).json({err, msg: 'Ups, consulta falló'})
+        })
+});
+
 module.exports = router;

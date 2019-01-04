@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 //CORS
 app.use(cors({
-    origin: ['http://localhost:3001']
+    origin: ['http://localhost:3001', 'http://apibgcnews.blacktrust.net']
 }));
 
 // Express View engine setup
