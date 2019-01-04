@@ -15,16 +15,7 @@ export const login = (auth, history) => {
         });
 };
 
-export const getPost = (token) => {
-    return axios.get(`${base_url}/post/`,{
-        headers:{
-            "x-access-token": token
-        }
-    })
-};
-
 export const updateUser = (id, form) => {
-    console.log(form);
     let formData = new FormData();
     Object.keys(form).forEach(key => {
        formData.append(key, form[key])

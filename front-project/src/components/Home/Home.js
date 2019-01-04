@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {LegalTable} from "./LegalTable";
+import Panel from "./Panel";
 
 const useStyles ={
     container: {
@@ -49,13 +49,22 @@ class Home extends Component {
         this.setState({user});
     }
 
+    getNews() {
+        const base_url = 'http://bgcnews-balancer-1054525291.us-west-1.elb.amazonaws.com/news?name=';
+        let fullname = this.state.form.name + ' ' + this.state.form.firstLastname + ' ' + this.state.form.secondLastname;
+        let url = `${base_url}${fullname}`;
+        console.log(url);
+
+        axios.get(url).then((res) => console.log(res.data));
+    }
+
     handleSubmit = (e) => {
         const base_url = 'http://localhost:3000/api';
         e.preventDefault();
+        this.getNews();
 
         let url = `${base_url}/search/`;
         const {form, user} = this.state;
-        console.log(this.state);
         form['user'] = user._id;
         const token = localStorage.getItem('token');
         if(!token) return this.props.history.push('/login');
@@ -65,12 +74,9 @@ class Home extends Component {
             }})
             .then((res) => {
                 this.setState({infoLegal:res.data.infoDB.results});
-                console.log(res.data.infoDB.results);
-                console.log('exitoso');
             })
             .catch(err => {
-                console.log(err);
-                alert(err.msg)
+                this.setState({infoLegal:[]})
             })
     };
 
@@ -124,7 +130,10 @@ class Home extends Component {
                         Search
                     </Button>
                 </form>
-                {infoLegal.length > 1 ? <LegalTable infoLegal={infoLegal} /> : ''}
+                <br/>
+                <br/>
+
+                <Panel infoLegal={infoLegal}/>
             </div>
 
         )
