@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const base_url = 'http://localhost:3000/';
+export const base_url = "https://who-i-am.herokuapp.com/"
+//export const base_url = 'http://localhost:3000/';
 
 export const login = (auth, history) => {
     axios.post(`${base_url}api/auth/login`, auth)

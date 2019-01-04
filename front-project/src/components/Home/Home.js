@@ -3,6 +3,7 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Panel from "./Panel";
+import {base_url} from "../../service";
 
 const useStyles ={
     container: {
@@ -51,10 +52,10 @@ class Home extends Component {
     }
 
     handleSubmit = (e) => {
-        const base_url = 'http://localhost:3000/api';
+
         e.preventDefault();
 
-        let url = `${base_url}/search/`;
+        let url = `${base_url}api/search/`;
         const {form, user} = this.state;
         form['user'] = user._id;
         const token = localStorage.getItem('token');
@@ -70,19 +71,17 @@ class Home extends Component {
                 this.setState({infoLegal:[]})
             });
 
-        let urlNews = `${base_url}/search/news/`;
+        let urlNews = `${base_url}api/search/news/`;
         axios.post(urlNews,form, {
             headers: {
                 "x-access-token": token
             }})
             .then((res) => {
-                console.log('Aqui');
-                console.log(res.data);
+
                 this.setState({infoNews:res.data.newsDB});
             })
             .catch(err => {
-                console.log('errrorrr');
-                console.log(err);
+                
                 this.setState({infoNews:[]});
             })
     };

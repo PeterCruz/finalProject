@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 //CORS
 app.use(cors({
-    origin: ['http://localhost:3001', 'http://apibgcnews.blacktrust.net']
+    origin: ['http://localhost:3001', 'http://apibgcnews.blacktrust.net',"https://who-i-am.herokuapp.com/"]
 }));
 
 // Express View engine setup
