@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {LegalTable} from "./LegalTable";
 import {NotResults} from "./NotResults";
+import {NewsTable} from "./NewsTable";
 
 const styles = {
     root: {
@@ -26,7 +27,7 @@ const styles = {
 
 class Panel extends Component {
     render() {
-        const {infoLegal} = this.props;
+        const {infoLegal, infoNews} = this.props;
         return (
             <div style={styles.root}>
                 <ExpansionPanel>
@@ -34,10 +35,7 @@ class Panel extends Component {
                         <Typography style={styles.heading}>News Information</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
-                        </Typography>
+                        {infoNews.length >1 ? <NewsTable infoNews={infoNews}/> : ''}
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel>

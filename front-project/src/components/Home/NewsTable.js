@@ -28,26 +28,24 @@ const useStyles ={
     },
 };
 
-export const LegalTable = ({infoLegal}) => (
+export const NewsTable = ({infoNews}) => (
     <Paper style={useStyles.root}>
         <Table style={useStyles.table}>
             <TableHead>
                 <TableRow>
-                    <CustomTableCell>Applicant</CustomTableCell>
-                    <CustomTableCell>Defendant</CustomTableCell>
-                    <CustomTableCell>Judgement Type</CustomTableCell>
-                    <CustomTableCell>State</CustomTableCell>
-                    <CustomTableCell>Circuit</CustomTableCell>
+                    <CustomTableCell>Category</CustomTableCell>
+                    <CustomTableCell>% Confidence</CustomTableCell>
+                    <CustomTableCell>Searcher</CustomTableCell>
+                    <CustomTableCell>Link</CustomTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-            {infoLegal.map((data, index) =>
+            {infoNews.map((data, index) =>
                 <TableRow key={index}>
-                    <CustomTableCell>{data.applicant}</CustomTableCell>
-                    <CustomTableCell align="right">{data.defendant}</CustomTableCell>
-                    <CustomTableCell align="right">{data.judgement_type}</CustomTableCell>
-                    <CustomTableCell align="right">{data.state}</CustomTableCell>
-                    <CustomTableCell align="right">{data.circuit}</CustomTableCell>
+                    <CustomTableCell>{data.class.class_name}</CustomTableCell>
+                    <CustomTableCell>{data.class.confidence}</CustomTableCell>
+                    <CustomTableCell>{data.searcher}</CustomTableCell>
+                    <CustomTableCell>{data.url}</CustomTableCell>
                 </TableRow>
             )}
             </TableBody>

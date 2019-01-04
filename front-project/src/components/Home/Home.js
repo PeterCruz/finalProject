@@ -39,7 +39,8 @@ class Home extends Component {
                 location: '',
             },
             user: {},
-            infoLegal:[]
+            infoLegal:[],
+            infoNews:[],
         }
     }
 
@@ -49,19 +50,9 @@ class Home extends Component {
         this.setState({user});
     }
 
-    getNews() {
-        const base_url = 'http://bgcnews-balancer-1054525291.us-west-1.elb.amazonaws.com/news?name=';
-        let fullname = this.state.form.name + ' ' + this.state.form.firstLastname + ' ' + this.state.form.secondLastname;
-        let url = `${base_url}${fullname}`;
-        console.log(url);
-
-        axios.get(url).then((res) => console.log(res.data));
-    }
-
     handleSubmit = (e) => {
         const base_url = 'http://localhost:3000/api';
         e.preventDefault();
-        this.getNews();
 
         let url = `${base_url}/search/`;
         const {form, user} = this.state;
@@ -77,6 +68,22 @@ class Home extends Component {
             })
             .catch(err => {
                 this.setState({infoLegal:[]})
+            });
+
+        let urlNews = `${base_url}/search/news/`;
+        axios.post(urlNews,form, {
+            headers: {
+                "x-access-token": token
+            }})
+            .then((res) => {
+                console.log('Aqui');
+                console.log(res.data);
+                this.setState({infoNews:res.data.newsDB});
+            })
+            .catch(err => {
+                console.log('errrorrr');
+                console.log(err);
+                this.setState({infoNews:[]});
             })
     };
 
@@ -88,7 +95,7 @@ class Home extends Component {
     };
 
     render() {
-        let {infoLegal} = this.state;
+        let {infoLegal, infoNews} = this.state;
         return(
             <div>
                 <form onSubmit={this.handleSubmit} style={useStyles.container} noValidate autoComplete="off">
@@ -118,14 +125,14 @@ class Home extends Component {
                         variant="outlined"
                         onChange={this.handleChange}
                     />
-                    <TextField
-                        name="location"
-                        label="Location"
-                        style={useStyles.textField}
-                        margin="normal"
-                        variant="outlined"
-                        onChange={this.handleChange}
-                    />
+                    {/*<TextField*/}
+                        {/*name="location"*/}
+                        {/*label="Location"*/}
+                        {/*style={useStyles.textField}*/}
+                        {/*margin="normal"*/}
+                        {/*variant="outlined"*/}
+                        {/*onChange={this.handleChange}*/}
+                    {/*/>*/}
                     <Button variant="contained" color="primary" type="submit" style={useStyles.button}>
                         Search
                     </Button>
@@ -133,7 +140,7 @@ class Home extends Component {
                 <br/>
                 <br/>
 
-                <Panel infoLegal={infoLegal}/>
+                <Panel infoLegal={infoLegal} infoNews={infoNews}/>
             </div>
 
         )
