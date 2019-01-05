@@ -84,7 +84,9 @@ class Home extends Component {
         axios.post(urlNews,form, {
             headers: {
                 "x-access-token": token
-            }})
+            },
+            timeout: 0
+        })
             .then((res) => {
                 this.setState({infoNews:res.data.newsDB,isSearched:false});
             })

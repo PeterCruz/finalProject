@@ -27,7 +27,9 @@ router.post('/news', auth.verifyToken, (req, res) => {
     const firstLastname = req.body.firstLastname;
     const secondLastname = req.body.secondLastname;
 
-    axios.get(`${process.env.API_NEWS}/news?name=${name}%20${firstLastname}%20${secondLastname}`)
+    axios.get(`${process.env.API_NEWS}/news?name=${name}%20${firstLastname}%20${secondLastname}`, {
+            timeout: 0
+        })
         .then(db => {
             const newsDB = db.data;
             res.status(200).json({newsDB})
