@@ -34,7 +34,7 @@ export const NewsTable = ({infoNews}) => (
             <TableHead>
                 <TableRow>
                     <CustomTableCell>Category</CustomTableCell>
-                    <CustomTableCell>% Confidence</CustomTableCell>
+                    <CustomTableCell>Confidence (0-1)</CustomTableCell>
                     <CustomTableCell>Searcher</CustomTableCell>
                     <CustomTableCell>Link</CustomTableCell>
                 </TableRow>
