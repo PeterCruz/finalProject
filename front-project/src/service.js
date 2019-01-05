@@ -11,7 +11,6 @@ export const login = (auth, history) => {
             history.push('/');
         })
         .catch(err => {
-            console.log('Error: ',err.response.data);
         });
 };
 
@@ -25,6 +24,5 @@ export const updateUser = (id, form) => {
             'Content-Type': 'multipart/form-data'
         }
     }).then(user => {
-        console.log(user);
     })
 };
