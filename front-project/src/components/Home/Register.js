@@ -10,6 +10,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import {LegalTable} from "./LegalTable";
+import {NotResults} from "./NotResults";
 
 const styles = theme => ({
     main: {
@@ -65,8 +67,9 @@ class Register extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (this.state.password !== this.state.confirmPassword) {
-            alert('Passwords no son iguales');
+        if (this.state.user.password !== this.state.user.confirmPassword) {
+            let error = 'Passwords are not equal';
+            this.setState({error});
         } else {
             register(this.state.user, this.props.history);
         }
@@ -102,6 +105,7 @@ class Register extends Component {
                             <InputLabel htmlFor="password">Confirm Password</InputLabel>
                             <Input id="confirmPassword" name="confirmPassword" type="password" autoComplete="confirm-password" onChange={this.handleChange} />
                         </FormControl>
+                        {this.state.error? <Typography color='error' variant="h6">{this.state.error}</Typography> : ''}
                         <Button
                             type="submit"
                             fullWidth
