@@ -30,25 +30,27 @@ const useStyles ={
 
 export const NewsTable = ({infoNews}) => (
     <Paper style={useStyles.root}>
-        <Table style={useStyles.table}>
-            <TableHead>
-                <TableRow>
-                    <CustomTableCell>Category</CustomTableCell>
-                    <CustomTableCell>Confidence (0-1)</CustomTableCell>
-                    <CustomTableCell>Searcher</CustomTableCell>
-                    <CustomTableCell>Link</CustomTableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-            {infoNews.map((data, index) =>
-                <TableRow key={index}>
-                    <CustomTableCell>{data.class.class_name}</CustomTableCell>
-                    <CustomTableCell>{data.class.confidence}</CustomTableCell>
-                    <CustomTableCell>{data.searcher}</CustomTableCell>
-                    <CustomTableCell><a href={data.url} target="_blank" rel="noopener noreferrer">{data.url}</a></CustomTableCell>
-                </TableRow>
-            )}
-            </TableBody>
-        </Table>
+        {infoNews.length > 1 ?
+            <Table style={useStyles.table}>
+                <TableHead>
+                    <TableRow>
+                        <CustomTableCell>Category</CustomTableCell>
+                        <CustomTableCell>Confidence (0-1)</CustomTableCell>
+                        <CustomTableCell>Searcher</CustomTableCell>
+                        <CustomTableCell>Link</CustomTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {infoNews.map((data, index) =>
+                        <TableRow key={index}>
+                            <CustomTableCell>{data.class.class_name}</CustomTableCell>
+                            <CustomTableCell>{data.class.confidence}</CustomTableCell>
+                            <CustomTableCell>{data.searcher}</CustomTableCell>
+                            <CustomTableCell><a href={data.url} target="_blank" rel="noopener noreferrer">{data.url}</a></CustomTableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        : ''}
     </Paper>
 );

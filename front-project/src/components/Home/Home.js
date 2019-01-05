@@ -42,6 +42,7 @@ class Home extends Component {
             user: {},
             infoLegal:[],
             infoNews:[],
+            isSearched: false,
         }
     }
 
@@ -65,6 +66,7 @@ class Home extends Component {
         form['user'] = user._id;
         const token = localStorage.getItem('token');
         if(!token) return this.props.history.push('/login');
+        this.setState({isSearched:true});
         axios.post(url,form, {
             headers: {
                 "x-access-token": token
@@ -83,11 +85,11 @@ class Home extends Component {
                 "x-access-token": token
             }})
             .then((res) => {
-                this.setState({infoNews:res.data.newsDB});
+                this.setState({infoNews:res.data.newsDB,isSearched:false});
             })
             .catch(err => {
                 if(err.response.status === 403) this.logout();
-                this.setState({infoNews:[]});
+                this.setState({infoNews:[],isSearched:false});
             })
     };
 
@@ -103,7 +105,7 @@ class Home extends Component {
     };
 
     render() {
-        let {infoLegal, infoNews} = this.state;
+        let {infoLegal, infoNews, isSearched} = this.state;
         return(
             <div>
                 <form onSubmit={this.handleSubmit} style={useStyles.container} noValidate autoComplete="off">
@@ -151,7 +153,7 @@ class Home extends Component {
                 <br/>
                 <br/>
 
-                <Panel infoLegal={infoLegal} infoNews={infoNews}/>
+                <Panel infoLegal={infoLegal} infoNews={infoNews} isSearched={isSearched}/>
             </div>
 
         )
