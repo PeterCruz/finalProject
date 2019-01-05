@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import logo from '../../logo1.png';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Panel from "./Panel";
@@ -108,6 +109,9 @@ class Home extends Component {
         let {infoLegal, infoNews, isSearched} = this.state;
         return(
             <div>
+                <img src={logo} alt="logo" />
+                <br />
+                <br />
                 <form onSubmit={this.handleSubmit} style={useStyles.container} noValidate autoComplete="off">
                     <TextField
                         required
