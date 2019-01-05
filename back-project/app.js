@@ -61,6 +61,8 @@ const auth = require('./routes/auth');
 
 app.use('/api/search', search);
 app.use('/api/auth', auth);
-
+app.all('*',(req,res) => {
+    res.sendFile(`${__dirname}/public/index.html`);
+});
 
 module.exports = app;
