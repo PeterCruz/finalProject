@@ -89,6 +89,8 @@ class Home extends Component {
                 this.setState({infoNews:res.data.newsDB,isSearched:false});
             })
             .catch(err => {
+                console.log(err);
+                console.log(err.response);
                 if(err.response.status === 403) this.logout();
                 this.setState({infoNews:[],isSearched:false});
             })
