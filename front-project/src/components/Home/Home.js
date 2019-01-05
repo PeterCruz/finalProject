@@ -51,6 +51,11 @@ class Home extends Component {
         this.setState({user});
     }
 
+    logout = () =>  {
+        localStorage.clear();
+        this.props.history.push('/login');
+    };
+
     handleSubmit = (e) => {
 
         e.preventDefault();
@@ -68,7 +73,8 @@ class Home extends Component {
                 this.setState({infoLegal:res.data.infoDB.results});
             })
             .catch(err => {
-                this.setState({infoLegal:[]})
+                if(err.response.status === 403) this.logout();
+                this.setState({infoLegal:[]});
             });
 
         let urlNews = `${base_url}api/search/news/`;
@@ -77,11 +83,10 @@ class Home extends Component {
                 "x-access-token": token
             }})
             .then((res) => {
-
                 this.setState({infoNews:res.data.newsDB});
             })
             .catch(err => {
-                
+                if(err.response.status === 403) this.logout();
                 this.setState({infoNews:[]});
             })
     };
