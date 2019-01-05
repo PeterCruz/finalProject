@@ -45,7 +45,7 @@ export const NewsTable = ({infoNews}) => (
                     <CustomTableCell>{data.class.class_name}</CustomTableCell>
                     <CustomTableCell>{data.class.confidence}</CustomTableCell>
                     <CustomTableCell>{data.searcher}</CustomTableCell>
-                    <CustomTableCell>{data.url}</CustomTableCell>
+                    <CustomTableCell><a href={data.url} target="_blank">{data.url}</a></CustomTableCell>
                 </TableRow>
             )}
             </TableBody>
