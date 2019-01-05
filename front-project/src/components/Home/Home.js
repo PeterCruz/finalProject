@@ -98,6 +98,10 @@ class Home extends Component {
         this.setState({form});
     };
 
+    onClick = (e) => {
+        this.logout();
+    };
+
     render() {
         let {infoLegal, infoNews} = this.state;
         return(
@@ -139,6 +143,9 @@ class Home extends Component {
                     {/*/>*/}
                     <Button variant="contained" color="primary" type="submit" style={useStyles.button}>
                         Search
+                    </Button>
+                    <Button variant="contained" onClick={this.onClick} color="secondary" type="button" style={useStyles.button}>
+                        Logout
                     </Button>
                 </form>
                 <br/>

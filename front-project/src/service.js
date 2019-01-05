@@ -14,6 +14,17 @@ export const login = (auth, history) => {
         });
 };
 
+export const register = (user, history) => {
+    axios.post(`${base_url}api/auth/register`, user)
+        .then(res => {
+            //console.log(res.data);
+            history.push('/login');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
 export const updateUser = (id, form) => {
     let formData = new FormData();
     Object.keys(form).forEach(key => {

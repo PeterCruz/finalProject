@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {login} from "../../service";
-import {Link} from 'react-router-dom';
+import {register} from "../../service";
 import PropTypes from 'prop-types';
 import logo from '../../logo1.png';
 import Button from '@material-ui/core/Button';
@@ -44,20 +43,17 @@ const styles = theme => ({
     },
 });
 
-class Auth extends Component {
+class Register extends Component {
     constructor(){
         super();
         this.state = {
             user: {
+                username: '',
                 email: '',
-                password: ''
+                password: '',
+                confirmPassword:'',
             }
         }
-    }
-
-    componentWillMount() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if(user) return this.props.history.push('/');
     }
 
     handleChange = (e) => {
@@ -69,12 +65,15 @@ class Auth extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        login(this.state.user, this.props.history);
+        if (this.state.password !== this.state.confirmPassword) {
+            alert('Passwords no son iguales');
+        } else {
+            register(this.state.user, this.props.history);
+        }
     };
 
     render() {
         const { classes } = this.props;
-        let {email, password} = this.state.user;
 
         return (
             <main className={classes.main}>
@@ -84,16 +83,24 @@ class Auth extends Component {
                     <br/>
                     <br/>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Create an account
                     </Typography>
                     <form onSubmit={this.handleSubmit} className={classes.form}>
                         <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="username">Username</InputLabel>
+                            <Input id="username" name="username" type="text" autoComplete="text" autoFocus onChange={this.handleChange} />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" type="email" autoComplete="email" autoFocus onChange={this.handleChange} value={email} />
+                            <Input id="email" name="email" type="email" autoComplete="email" autoFocus onChange={this.handleChange} />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input id="password" name="password" type="password" autoComplete="current-password" onChange={this.handleChange} value={password} />
+                            <Input id="password" name="password" type="password" autoComplete="current-password" onChange={this.handleChange} />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="password">Confirm Password</InputLabel>
+                            <Input id="confirmPassword" name="confirmPassword" type="password" autoComplete="confirm-password" onChange={this.handleChange} />
                         </FormControl>
                         <Button
                             type="submit"
@@ -102,11 +109,8 @@ class Auth extends Component {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sig in
+                            Sign up
                         </Button>
-                        <br/>
-                        <br/>
-                        <span>You are not yet registered <Link to={"/signup"}>Sign up</Link></span>
                     </form>
                 </Paper>
             </main>
@@ -115,8 +119,8 @@ class Auth extends Component {
     }
 }
 
-Auth.propTypes = {
+Register.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Auth);
+export default withStyles(styles)(Register);
